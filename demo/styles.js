@@ -8,10 +8,11 @@ var styles = StyleSheet.create({
   container: {
     backgroundColor: '#f2f2f2',
     flex: 1,
+    paddingTop: 40,
   },
   listview: {
     flex: 1,
-    padding: 13,
+    padding: 15,
   },
   li: {
     backgroundColor: '#9bd09a',
@@ -101,7 +102,45 @@ var styles = StyleSheet.create({
   oxfordImage: {
     height:180,
     width:null,
-    },
+  },
+  nav: {
+    height: 50,
+    backgroundColor: '#efefef',
+  },
+  navTitle: {
+    marginTop:4,
+    fontSize:16,
+  },
+  leftNavButtonText: {
+    fontSize: 15,
+    marginLeft:13,
+    marginTop: 2
+  },
+  businessContainer: {
+    flex: 1,
+    marginTop: 50,
+  },
+  businessNameStyle: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 30,
+    marginTop: 50,
+  },
+  businessInfoStyle: {
+    textAlign: 'center',
+    marginTop: 10,
+    fontSize: 15,
+  },
+  homeIcon: {
+    height: 20,
+    width: 20,
+  },
+  searchBar: {
+    marginTop: 0,
+    height: 50,
+    width: null,
+    borderRadius: 5,
+  }
 })
 
 module.exports = styles
