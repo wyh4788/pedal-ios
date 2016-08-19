@@ -24,6 +24,8 @@
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		DCA640D51D5E5E71002E547F /* Quicksand_Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = DCA640D41D5E5E71002E547F /* Quicksand_Light.otf */; };
+		DCAEC8961D66AB7D00C312E4 /* Quicksand_Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = DCAEC8941D66AB7D00C312E4 /* Quicksand_Bold.otf */; };
+		DCAEC8971D66AB7D00C312E4 /* Quicksand_Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = DCAEC8951D66AB7D00C312E4 /* Quicksand_Book.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,6 +131,8 @@
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		DCA640D41D5E5E71002E547F /* Quicksand_Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Quicksand_Light.otf; sourceTree = "<group>"; };
+		DCAEC8941D66AB7D00C312E4 /* Quicksand_Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Quicksand_Bold.otf; sourceTree = "<group>"; };
+		DCAEC8951D66AB7D00C312E4 /* Quicksand_Book.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Quicksand_Book.otf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -292,6 +296,8 @@
 			isa = PBXGroup;
 			children = (
 				DCA640D41D5E5E71002E547F /* Quicksand_Light.otf */,
+				DCAEC8941D66AB7D00C312E4 /* Quicksand_Bold.otf */,
+				DCAEC8951D66AB7D00C312E4 /* Quicksand_Book.otf */,
 				13B07FAE1A68108700A75B9A /* demo */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* demoTests */,
@@ -513,7 +519,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DCAEC8961D66AB7D00C312E4 /* Quicksand_Bold.otf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				DCAEC8971D66AB7D00C312E4 /* Quicksand_Book.otf in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				DCA640D51D5E5E71002E547F /* Quicksand_Light.otf in Resources */,
 			);

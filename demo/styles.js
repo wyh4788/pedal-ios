@@ -41,7 +41,7 @@ var styles = StyleSheet.create({
     paddingBottom: 10,
     margin: 3,
     fontSize: 20,
-    fontFamily: "Times New Roman",
+    fontFamily: 'QuicksandBold-Regular',
 
   },
   liDeal :{
@@ -49,12 +49,22 @@ var styles = StyleSheet.create({
     paddingBottom: 3,
     paddingLeft: 20,
     fontSize: 15,
+    fontFamily: 'QuicksandBook-Regular',
   },
   liEvent :{
     paddingTop: 3,
     paddingBottom: 3,
     paddingLeft: 24,
+    marginRight: 4,
     fontSize: 15,
+    fontFamily: 'QuicksandBook-Regular',
+  },
+  liTime :{
+    paddingTop: 3,
+    paddingBottom: 3,
+    marginRight: 0,
+    fontSize: 15,
+    fontFamily: 'QuicksandBook-Regular',
   },
   containerOutside :{
     backgroundColor: '#fee371',
@@ -82,6 +92,8 @@ var styles = StyleSheet.create({
     height: 30,
     textAlign: 'center',
     fontSize:20,
+    paddingTop: 5,
+    fontFamily: 'QuicksandLight-Regular',
   },
   center: {
     textAlign: 'center',
@@ -140,7 +152,19 @@ var styles = StyleSheet.create({
     height: 50,
     width: null,
     borderRadius: 5,
-  }
+  },
+  deliveryTitle: {
+    fontSize: 40,
+    fontFamily: 'QuicksandLight-Regular',
+    margin: 5,
+    textAlign: 'center',
+  },
+  deliveryBackground: {
+    backgroundColor: '#9ba1cd',
+    borderRadius: 5,
+    marginBottom: 13,
+    paddingBottom: 5,
+  },
 })
 
 module.exports = styles

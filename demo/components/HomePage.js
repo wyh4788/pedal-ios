@@ -2,21 +2,14 @@
 
 import React, {Component} from 'react';
 import ReactNative from 'react-native';
-const firebase = require('firebase');
 const ListItem = require('./ListItem');
 const DateLabel = require('./DateLabel')
 const styles = require('../styles.js')
 
-const { AppRegistry, ListView, StyleSheet, Text, View, TouchableHighlight, Image, TextInput} = ReactNative;
+const { AppRegistry, ListView, StyleSheet, Text, View, TouchableHighlight, Image, TextInput, InteractionManager, TabBarIOS} = ReactNative;
 
 // Initialize Firebase
-const firebaseConfig = {
-  apiKey: "AIzaSyA-FPbX1XaZpynBlOE9xNaQWKr5AYKqQWU",
-  authDomain: "pedal-business.firebaseapp.com",
-  databaseURL: "https://pedal-business.firebaseio.com",
-  storageBucket: "pedal-business.appspot.com",
-};
-const firebaseApp = firebase.initializeApp(firebaseConfig);
+
 
 var tempItem = [];
 
@@ -27,61 +20,74 @@ class HomePage extends Component {
     this.state = {
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
-      })
+      }),
+      renderPlaceholderOnly: true,
     };
     this.itemsRef = this.getRef().child('users');
   }
 
   getRef() {
-    return firebaseApp.database().ref();
+    console.log(this.props.name);
+    return this.props.firebaseApp.database().ref();
   }
 
   listenForItems(itemsRef) {
-    //console.log(itemsRef);
     itemsRef.on('value', (snap) => {
       // get children as an array
       var items = [];
       var d = new Date();
       var day = d.getDay();
 
+
       // each business(user)
       snap.forEach((child) => {
+        //console.log(child.val());
         var tempSpecials = child.val().specials;
         var business_info = child.val().profile_info;
         var businessId = child.key;
         var eventArray = [];
         var dealArray = [];
 
-        if (tempSpecials){
-          var tempEvent = tempSpecials['event'];
-          var tempDeal = tempSpecials['deal'];
+        if (business_info){
+          if (tempSpecials){
+            var tempEvent = tempSpecials['event'];
+            var tempDeal = tempSpecials['deal'];
 
-          if (tempEvent){
-            var tempDayEvent = tempEvent[day];
-            if (tempDayEvent){
-              for (var key in tempDayEvent){
-                eventArray.push(tempDayEvent[key].title);
+            if (tempEvent){
+              var tempDayEvent = tempEvent[day];
+              if (tempDayEvent){
+                for (var key in tempDayEvent){
+                  eventArray.push({
+                    title: tempDayEvent[key].title,
+                    start: tempDayEvent[key].start,
+                    end: tempDayEvent[key].end,
+                  });
+                }
               }
             }
-          }
 
-          if (tempDeal){
-            var tempDayDeal = tempDeal[day];
-            if (tempDayDeal){
-              for (var key in tempDayDeal){
-                var tempString = "";
-                tempString = tempDayDeal[key].item + ": $" + tempDayDeal[key].price;
-                dealArray.push(tempString);
+            if (tempDeal){
+              var tempDayDeal = tempDeal[day];
+              if (tempDayDeal){
+                for (var key in tempDayDeal){
+                  var tempString = "";
+                  tempString = tempDayDeal[key].item + ": $" + tempDayDeal[key].price;
+                  dealArray.push({
+                    title: tempString,
+                    start: tempDayDeal[key].start,
+                    end: tempDayDeal[key].end,
+                  });
+                }
               }
             }
-          }
 
-          items.push({
-            business_info: business_info,
-            uid: businessId,
-            deals: dealArray,
-            events: eventArray,
-          });
+            items.push({
+              business_info: business_info,
+              uid: businessId,
+              deals: dealArray,
+              events: eventArray,
+            });
+          }
         }
       });
 
@@ -89,12 +95,14 @@ class HomePage extends Component {
       this.setState({
         dataSource: this.state.dataSource.cloneWithRows(items)
       });
-
     });
   }
 
   componentDidMount() {
     this.listenForItems(this.itemsRef);
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({renderPlaceholderOnly: false});
+    });
   }
 
   setSearchText(event) {
@@ -109,7 +117,6 @@ class HomePage extends Component {
 
     });
 
-    console.log(newItems);
     this.setState({
        dataSource: this.state.dataSource.cloneWithRows(newItems)
      });
@@ -117,6 +124,10 @@ class HomePage extends Component {
   }
 
   render() {
+    if (this.state.renderPlaceholderOnly) {
+      return this._renderPlaceholderView();
+    }
+
     return (
       <View style={styles.container}>
         <TextInput
@@ -135,13 +146,20 @@ class HomePage extends Component {
           enableEmptySections={true}
           style={styles.listview}/>
       </View>
-    )
+    );
   }
 
+  _renderPlaceholderView() {
+    return (
+      <View>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
 
   _renderItem(item) {
     return (
-      <ListItem item={item} navigator={this.props.navigator} firebaseApp={firebaseApp} />
+      <ListItem item={item} navigator={this.props.navigator} firebaseApp={this.props.firebaseApp} />
     );
   }
 

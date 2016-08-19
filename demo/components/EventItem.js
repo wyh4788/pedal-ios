@@ -10,7 +10,15 @@ class EventItem extends Component {
     var arr = [];
     eventItems.forEach((item, k) => {
       arr.push(
-        <Text key={k} style={styles.liEvent}>{item}</Text>
+        <View key={k} style={{
+          flex: 1,
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          paddingRight: 4,
+        }}>
+          <Text style={styles.liEvent}>{item.title}</Text>
+          <Text style={styles.liTime}>{item.start}--{item.end}</Text>
+        </View>
       )
     });
 

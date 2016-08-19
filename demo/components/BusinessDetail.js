@@ -3,7 +3,7 @@ import ReactNative from 'react-native';
 const styles = require('../styles.js')
 const firebase = require('firebase');
 const BusinessItem = require('./BusinessItem');
-const { View, Text, ListView } = ReactNative;
+const { View, Text, ListView, InteractionManager } = ReactNative;
 
 
 class BusinessDetail extends Component {
@@ -14,6 +14,7 @@ class BusinessDetail extends Component {
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
+      renderPlaceholderOnly: true,
     };
     var businessRef = this.props.businessRef;
     this.itemRef = this.getRef('users/' + businessRef);
@@ -53,12 +54,20 @@ class BusinessDetail extends Component {
           for (var key in dayDeal) {
             var tempString = "";
             tempString = dayDeal[key].item + ": $" + dayDeal[key].price;
-            dealArray.push(tempString);
+            dealArray.push({
+              title: tempString,
+              start: dayDeal[key].start,
+              end: dayDeal[key].end,
+            });
           }
         }
         if (dayEvent){
           for (var key in dayEvent) {
-            eventArray.push(dayEvent[key].title);
+            eventArray.push({
+              title: dayEvent[key].title,
+              start: dayEvent[key].start,
+              end: dayEvent[key].end,
+            });
           }
         }
         items.push({
@@ -76,9 +85,17 @@ class BusinessDetail extends Component {
 
   componentDidMount() {
     this.listenForItems(this.itemRef);
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({renderPlaceholderOnly: false});
+    });
   }
 
+
   render() {
+    if (this.state.renderPlaceholderOnly) {
+      return this._renderPlaceholderView();
+    }
+
     return (
       <View style={styles.businessContainer}>
         <Text style={styles.businessNameStyle}>{this.props.business_info.business_name}</Text>
@@ -91,12 +108,20 @@ class BusinessDetail extends Component {
           enableEmptySections={true}
           style={styles.listview}/>
       </View>
-    )
+    );
   }
 
   _renderItem(item) {
     return (
       <BusinessItem card={item}/>
+    );
+  }
+
+  _renderPlaceholderView() {
+    return (
+      <View>
+        <Text>Loading...</Text>
+      </View>
     );
   }
 
